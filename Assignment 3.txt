@@ -1,0 +1,107 @@
+
+mysql> create database Assignment3;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use Assignment3;
+Database changed
+mysql> create table (
+    -> \c
+mysql> create table Department(
+    -> dept_id int(20),
+    -> dept_name varchar(50));
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> create database Assignment4;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use Assignment4;
+Database changed
+mysql> use Assignment3;
+Database changed
+
+
+mysql> drop table department;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show tables;
+Empty set (0.01 sec)
+
+mysql> create table Department(
+    -> dept_id int(20)primary key,
+    -> dept_name varchar(50));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into department values(1,'Finance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into department values(2,'Training');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into department values(3,'Marketing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from department;
+
+mysql> create table Employee(
+    -> empid int(5)primary key,
+    -> emp_name char(10),
+    -> dept_id int(20),
+    -> salary int(10),
+    -> manager int(5),
+    -> constraint fk_dept foreign key(dept_id) references Department(dept_id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into Employee(empid,emp_name,dept_id,salary,manager) values (1Arun18000  4
+    -> insert into Employee(empid,emp_name,dept_id,salary,manager) values (1Arun18000  4\c
+mysql> insert into Employee(empid,emp_name,dept_id,salary,manager) values (1,'Arun',1,8000,4);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Employee(empid,emp_name,dept_id,salary,manager) values (2,'Kiran',1,7000,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee(empid,emp_name,dept_id,salary,manager) values (3,'Scott',1,3000,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee(empid,emp_name,dept_id,salary,manager) values (4,'Max',2,9000,null);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee(empid,emp_name,dept_id,salary,manager) values (5,'Jack',2,8000,4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Employee(empid,emp_name,dept_id,salary,manager) values (6,'King',null,6000,1);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from employee;
+
+
+mysql> alter table Employee add constraint fk_emp_mgr foreign key(manager) references employee(empid);
+Query OK, 6 rows affected (0.16 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
+
+
+mysql> select * from department;
+
+
+mysql> desc department;
+
+
+mysql> SELECT dept_id, SUM(salary)
+    -> FROM employee
+    -> GROUP BY dept_id;
+
+mysql> select dept_id ,sum(salary) 
+	from employee  group by (dept_id) 
+	having sum(salary)>17000 ;
+
+
+mysql> select dept_id ,sum(salary) 
+	from employee  group by (dept_id) 
+	having sum(salary)>18000 ;
+
+
+mysql> select dept_id ,sum(salary) 
+	from employee  group by (dept_id) 
+	having sum(salary)<20000 ;
