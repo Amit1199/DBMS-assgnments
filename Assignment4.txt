@@ -1,0 +1,43 @@
+mysql> Select d.dept_name ,e.emp_name from
+    -> Employee e inner join Department d
+    -> on e.dept_id = d.dept_id
+    -> Where d.dept_name in ('Finance','Training','Marketing');
+
+mysql> Select * from
+    -> Employee e inner join Department d
+    -> on e.dept_id = d.dept_id
+    -> Where d.dept_name in ('Finance','Training','Marketing');
+
+mysql> SELECT dept_id, SUM(salary)
+    -> FROM  employee
+    -> GROUP BY  dept_id;
+
+mysql> Select dept_name ,emp_name from
+    -> Employee e right outer join Department d
+    -> on e.dept_id = d.dept_id
+    -> ;
+
+mysql> Select dept_name ,emp_name from
+    -> Employee e left outer join Department d
+    -> on e.dept_id = d.dept_id
+    -> ;
+
+mysql> SELECT e.empid 'Emp_Id',
+    -> m.manager 'Manager'
+    -> FROM employee e
+    -> join employee m
+    -> ON (e.manager = m.empid);
+
+mysql> SELECT e.emp_name 'Emp_Id',
+    -> m.manager 'Manager'
+    -> FROM employee e
+    -> join employee m
+    -> ON (e.manager = m.empid);
+
+SELECT dept_id,sum(salary) FROM Employee GROUP BY dept_id HAVING sum(salary) > 45000 ;
+SELECT dept_id,sum(salary) FROM Employee GROUP BY dept_id HAVING sum(salary) < 45000 ;
+  
+SELECT * FROM Employee ORDER BY emp_name DESC;
+SELECT * FROM Employee ORDER BY emp_name ASC;
+SELECT * FROM Employee ORDER BY salary DESC;
+SELECT * FROM Employee ORDER BY salary ASC;
