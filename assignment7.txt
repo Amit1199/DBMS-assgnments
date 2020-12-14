@@ -1,0 +1,69 @@
+
+create table ord_master(ord_no int primary key,cust_cd char(5),status char);
+
+insert into ord_master values(1,'C1','P');
+select * from ord_master
+
+create table Ord_dtl(Ord_no int(5),prod_cd char(5),Qty int(5));
+
+alter table Ord_dtl add primary key(prod_cd)
+alter table ord_dtl drop primary key
+insert into Ord_dtl values (1,'P1',100),(1,'P2',200);
+
+select * from Ord_dtl
+create table Prod_master(prod_cd char(5),prod_name char(15),Qty_in_stock int(10),Booked_qty
+int(10));
+
+alter table Prod_master add primary key(prod_name);
+alter table Prod_master add foreign key(prod_cd) references ord_dtl(prod_cd);
+alter table Prod_master drop constraint foreign key
+drop table Prod_master
+
+insert into Prod_master values('P1','Floppies',10000,1000), 
+ ('P2','Printers',5000,600),
+ ('P2','Modems',3000,200);
+ 
+ delimiter //
+  create trigger syz before insert on Ord_dtl 
+  for each row
+  begin 
+  update Prod_master set booked_qty=booked_qty+new.qty where Prod_cd=new.Prod_cd  ;
+ end//
+ 
+ 
+SET SQL_SAFE_UPDATES = 0;
+drop trigger syz
+
+select * from prod_master
+
+delimiter \\
+create trigger bef before delete on Ord_dtl
+for each row
+begin
+update prod_master set Booked_qty=Booked_qty- old.qty where Prod_cd=old.Prod_cd;
+end\\
+
+delete from ord_dtl where prod_cd='P1';
+select * from department
+select * from employee
+alter table department add column total_sal int(10)
+update department set total_sal=1000000 where dept_name='finance';
+update department set total_sal=1200000 where dept_name='Marketing';
+update department set total_sal=800000 where dept_name='training';
+
+delimiter //
+create trigger ad_emp before insert on employee
+for each row
+begin
+update department set total_sal=total_sal+new.salary;
+end //
+
+delimiter //
+create trigger del_emp after delete on employee
+for each row
+begin
+update department set total_sal=total_sal-old.salary where (dept_id=old.dept_id);
+end //
+drop trigger del_emp;
+insert into employee values(8,'aniket',2,10000,3)
+delete from employee where empid=1;
